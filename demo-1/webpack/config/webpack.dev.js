@@ -1,5 +1,5 @@
 const path = require('path');
-const { PROJECT_PATH } = require('../constant';)
+const { PROJECT_PATH } = require('../constant')
 
 module.exports = {
   entry: './src/index.js',
