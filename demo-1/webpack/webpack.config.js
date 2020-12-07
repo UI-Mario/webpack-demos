@@ -5,7 +5,9 @@
 // 各种优化
 const path = require("path");
 const { PROJECT_PATH } = require("./constant");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const WebpackBar = require('webpackbar');
 
 module.exports = {
   mode: "development",
@@ -41,7 +43,39 @@ module.exports = {
       // 详细loader配置
       // 不同文件处理配置不同loader处理
       // 一个loader配置写在一个对象{}里
-      {},
+      // 不同文件处理配置不同loader处理
+      {
+        // 匹配哪些文件
+        test: /\.css$/,
+        // 使用哪些loader进行处理
+        use: [
+          // use数组中loader执行顺序：从右到左，从下到上 依次执行
+          // 创建style标签，将js中的样式资源插入进行，添加到head中生效
+          "style-loader",
+          // 将css文件变成commonjs模块加载到输出的js文件中，里面内容是样式字符串
+          "css-loader",
+        ],
+      },
+      {
+        test: /\.less$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          // 将less文件编译成css文件
+          // 需要下载 less-loader和less
+          "less-loader",
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          // 将less文件编译成css文件
+          // 需要下载 less-loader和less
+          "sass-loader",
+        ],
+      },
       {},
     ],
   },
@@ -50,14 +84,20 @@ module.exports = {
   plugins: [
     // 详细plugins的配置
     new HtmlWebpackPlugin({
-      title: 'bundled_index',
+      title: "bundled_index",
       // 相对路径，起点为output里设置的
-      filename: 'bundled_index.html',
+      filename: "bundled_index.html",
       // 根目录demo-1为起点
-      template: './public/index.html',
+      template: "./public/index.html",
+      cache: false,
     }),
     new HtmlWebpackPlugin({
-      filename: 'test/another_test.html',
-    })
+      filename: "test/another_test.html",
+    }),
+    new WebpackBar({
+      name: '正在启动',
+      color: '#fa8c16',
+    }),
+    // new CleanWebpackPlugin(["build"])
   ],
 };
