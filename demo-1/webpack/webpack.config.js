@@ -1,26 +1,27 @@
 // CommonJS，毕竟webpack是node写出来的
-//配置ts， 配置eslint，css等样式
+// 配置ts， 配置eslint，css等样式
 // 多入口，多出口
 // tree shaking, code split
 // 各种优化
-const path = require("path");
+const { resolve } = require("path");
 const { PROJECT_PATH } = require("./constant");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const WebpackBar = require('webpackbar');
+const WebpackBar = require("webpackbar");
 
 module.exports = {
   mode: "development",
-  // devServer: {
-  //   host: "127.0.0.1", // 指定 host，不设置的话默认是 localhost
-  //   port: 8081, // 指定端口，默认是8080
-  //   // stats: 'errors-only', // 终端仅打印 error
-  //   // clientLogLevel: 'silent', // 日志等级
-  //   // compress: true, // 是否启用 gzip 压缩
-  //   // open: true, // 打开默认浏览器
-  //   // hot: true, // 热更新
-  //   // proxy: { ...proxySetting }, // 启用代理
-  // },
+  devServer: {
+    contentBase: "./build",
+    host: "127.0.0.1", // 指定 host，不设置的话默认是 localhost
+    port: 8081, // 指定端口，默认是8080
+    // stats: 'errors-only', // 终端仅打印 error
+    // clientLogLevel: 'silent', // 日志等级
+    // compress: true, // 是否启用 gzip 压缩
+    // open: true, // 打开默认浏览器
+    // hot: true, // 热更新
+    // proxy: { ...proxySetting }, // 启用代理
+  },
   // TODO:这玩意儿感觉没啥用啊
   // devtool: 'inline-source-map',
   entry: {
@@ -34,8 +35,19 @@ module.exports = {
     // ANSWER:html-webpack-plugin
     filename: "[name].[hash:8].bundle.js",
     //必须是绝对路径
-    // path.resolve和path.join
-    path: path.resolve(PROJECT_PATH, "./build"),
+    // resolve和join
+    path: resolve(PROJECT_PATH, "./build"),
+  },
+  resolve: {
+    // 新增了 resolve属性，在 extensions 中定义好文件后缀名后，在 import 某个文件的时候，
+    // 就可以不加文件后缀名了。webpack 会按照定义的后缀名的顺序依次处理文件，比如上文配置 ['.tsx', '.ts', '.js', '.json']，
+    // webpack 会先尝试加上 .tsx后缀，看找得到文件不，如果找不到就依次尝试进行查找，所以我们在配置时尽量把最常用到的后缀放到最前面，可以缩短查找时间。
+    extensions: [".tsx", ".ts", ".js", ".json"],
+    // 路径别名，在tsconfig.json里也有设置
+    // 这里设置只是让编辑器不标红，有提示等
+    alias: {
+      Src: resolve(PROJECT_PATH, "./src"),
+    },
   },
   // loader的配置
   module: {
@@ -70,10 +82,20 @@ module.exports = {
         test: /\.scss$/,
         use: [
           "style-loader",
-          "css-loader",
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
           // 将less文件编译成css文件
           // 需要下载 less-loader和less
-          "sass-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
         ],
       },
       {},
@@ -83,6 +105,12 @@ module.exports = {
   // plugins的配置
   plugins: [
     // 详细plugins的配置
+    new WebpackBar({
+      name: "正在启动",
+      color: "#fa8c16",
+    }),
+    // 注意啊，先clean之后再加上新的，差点搞反顺序
+    // ...不，好像没啥影响
     new HtmlWebpackPlugin({
       title: "bundled_index",
       // 相对路径，起点为output里设置的
@@ -94,10 +122,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: "test/another_test.html",
     }),
-    new WebpackBar({
-      name: '正在启动',
-      color: '#fa8c16',
-    }),
-    // new CleanWebpackPlugin(["build"])
+    new CleanWebpackPlugin(),
+
   ],
 };
