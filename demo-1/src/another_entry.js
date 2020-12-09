@@ -1,1 +1,1 @@
-console.log("boring");
+console.log('boring');
