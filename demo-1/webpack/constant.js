@@ -6,7 +6,7 @@ const PROJECT_NAME = path.parse(PROJECT_PATH).name;
 const isDev = process.env.NODE_ENV === 'development';
 
 // 为本地服务器指定IP、端口
-const SERVER_HOST = 'localhost'; // '127.0.0.1';
+const SERVER_HOST = null; // '127.0.0.1';
 const SERVER_PORT = 8081;
 
 module.exports = {

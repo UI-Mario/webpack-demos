@@ -4,7 +4,7 @@
 // tree shaking, code split
 // 各种优化
 const { resolve } = require('path');
-const { isDev, SERVER_PORT, SERVER_HOST, PROJECT_PATH } = require('../constant');
+const { isDev, PROJECT_PATH } = require('../constant');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WebpackBar = require('webpackbar');
@@ -13,7 +13,7 @@ module.exports = {
   entry: {
     // TODO:有意思的是这里的路径算绝对还是相对，都不像
     index: './src/test_tsx.tsx',
-    another_entry: './src/another_entry.js',
+    // another_entry: './src/another_entry.js',
   },
   output: {
     // 多入口时，打包出来的文件名字必须不一样
