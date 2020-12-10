@@ -13,7 +13,7 @@ module.exports = {
   entry: {
     // TODO:有意思的是这里的路径算绝对还是相对，都不像
     index: './src/test_tsx.tsx',
-    // another_entry: './src/another_entry.js',
+    another_entry: './src/another_entry.js',
   },
   output: {
     // 多入口时，打包出来的文件名字必须不一样
@@ -98,6 +98,7 @@ module.exports = {
 
   // plugins的配置
   plugins: [
+    new CleanWebpackPlugin(),
     // 详细plugins的配置
     new WebpackBar({
       name: isDev ? '正在启动' : '正在打包',
@@ -117,6 +118,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'test/another_test.html',
     }),
-    new CleanWebpackPlugin(),
   ],
 };

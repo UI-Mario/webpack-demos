@@ -7,10 +7,12 @@ body {
   width: 100px;
   height: 100px;
   background-color: cadetblue;
+  margin-bottom: 0;
 //   transition-duration transition-delay
-  transition: 0.5s 2s width ease-in-out;
+  transition: 0.5s 2s width ease-in-out, margin-bottom 0.5s ease-in-out;
 }
 
 .test:hover {
   width: 500px;
+  margin-bottom: 20px;
 }
