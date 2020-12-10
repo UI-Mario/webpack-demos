@@ -92,6 +92,22 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.(jpg|gif|ico|png|svg)$/,
+        loader: 'url-loader',
+        options: {
+          // 图片大小小于8kb，就会被base64处理
+          // base64处理打包后不会单独生成一张图片
+          // base64处理后只存在于打包后的文件内(这里是存在build/built.js中)
+          // HTML页面会以base64的方式引入这张图片
+          // 优点: 减少请求数量（减轻服务器压力，服务器不会存着那么多张图片在）
+          // 缺点：图片体积会更大（文件请求速度更慢）
+          name: '[name].[ext]',
+          outputPath: 'images', // 也可以直接写在name里面
+          limit: 8 * 1024,
+        },
+        exclude: /(node_modules)/,
+      },
       {},
     ],
   },

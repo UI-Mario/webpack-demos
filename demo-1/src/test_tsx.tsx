@@ -9,7 +9,11 @@ ReactDOM.render(
   <div>
     <div className="test"></div>
     <div>
-      <img src="./assets/test_url_loader.png" alt="检查是否可以打包img" />
+      {/* 很好，又一大坑
+      在css里我写了background-image来引入图片，webpack可以正确识别并打包
+      md这儿不行，ε＝ε＝ε＝(#>д<)ﾉ
+      气的肝疼，缓一会 */}
+      <img src="./assets/awesome.png" alt="检查是否可以打包img" />
       <p>this is a paragraph</p>
     </div>
   </div>,

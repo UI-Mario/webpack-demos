@@ -8,7 +8,7 @@
         }
       ],
       "@babel/preset-react",
-    //   "@babel/preset-typescript" //有意思的是不加这一行也能解析tsx
+      "@babel/preset-typescript" //有意思的是不加这一行也能解析tsx //不，还是要加的，不加莫名其妙给函数添加返回值类型的时候报错
     ],
     // "plugins": [
     //   [
