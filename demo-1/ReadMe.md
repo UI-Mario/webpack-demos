@@ -8,6 +8,9 @@
 
 - eslint, prettier
 
+- static resource
+
+
 TODO:
 
 - workspace
@@ -17,8 +20,6 @@ TODO:
 - multi output
 
 - husky, lint-stage
-
-- static resource
 
 - own
 
