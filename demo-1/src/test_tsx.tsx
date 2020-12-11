@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './test.scss';
+import test_img from './assets/images/awesome.png';
+import { test_ts } from './test_ts';
+// import test_overload from './try_fake_overload_in_ts';
+
+test_ts();
 
 ReactDOM.render(
   <div>
@@ -15,7 +20,10 @@ ReactDOM.render(
       但是为什么呢
       写图片都得这么写吗，是我代码量太少？
       一定要改，这是什么丑陋的写法 */}
-      <img src={require('./assets/awesome.png')} alt="检查是否可以打包img" />
+      {/* 写法1，丑 */}
+      {/* <img src={require('./assets/images/awesome.png')} alt="检查是否可以打包img" /> */}
+      {/* 写法2，丑，而且还要在.d.ts里declare一下 */}
+      <img src={test_img} alt="检查是否可以打包img" />
       <p>this is a paragraph</p>
     </div>
   </div>,

@@ -8,6 +8,8 @@ const { isDev, PROJECT_PATH } = require('../constant');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WebpackBar = require('webpackbar');
+const CompressionPlugin = require('compression-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
@@ -15,11 +17,13 @@ module.exports = {
     index: './src/test_tsx.tsx',
     another_entry: './src/another_entry.js',
   },
+  // 这也是多入口，写数组里，但是只能打出一个js
+  // entry: ['./src/test_tsx.tsx', './src/another_entry.js'],
   output: {
     // 多入口时，打包出来的文件名字必须不一样
     // TODO:那html怎么确定要引入的js文件，文件名一直变
     // ANSWER:html-webpack-plugin
-    filename: '[name].[hash:8].bundle.js',
+    filename: 'js/[name].[hash:8].bundle.js',
     //必须是绝对路径
     // resolve和join
     path: resolve(PROJECT_PATH, './build'),
@@ -57,7 +61,7 @@ module.exports = {
         use: [
           // use数组中loader执行顺序：从右到左，从下到上 依次执行
           // 创建style标签，将js中的样式资源插入进行，添加到head中生效
-          'style-loader',
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           // 将css文件变成commonjs模块加载到输出的js文件中，里面内容是样式字符串
           'css-loader',
         ],
@@ -65,7 +69,7 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          'style-loader',
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           // 将less文件编译成css文件
           // 需要下载 less-loader和less
@@ -75,7 +79,7 @@ module.exports = {
       {
         test: /\.s(a|c)ss$/,
         use: [
-          'style-loader',
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -114,6 +118,7 @@ module.exports = {
 
   // plugins的配置
   plugins: [
+    new CompressionPlugin(),
     new CleanWebpackPlugin(),
     // 详细plugins的配置
     new WebpackBar({
@@ -123,6 +128,48 @@ module.exports = {
     // 注意啊，先clean之后再加上新的，差点搞反顺序
     // ...不，好像没啥影响
     new HtmlWebpackPlugin({
+      // TODO:多出口，具体请看考下列代码
+      //   module.exports = {
+      //     mode: 'development',
+      //     // entry:'./src/index.js',方式一
+      //     // entry:['./src/index.js','./src/add.js'],方式二
+      //     entry: {//方式三
+      //         index: './src/index.js',
+      //         add: './src/add.js',
+      //         home:'./src/home.js'
+      //     },
+
+      //     //出口
+      //     output: {
+      //         //文件名 [name]根据入口的名称定义
+      //         filename: 'js/[name].js',
+      //         //输出文件目录（将来所有资源输出的公共目录）
+      //         path: __dirname + '/dist',
+      //         // 所有资源引入公共路径前缀
+      //         publicPath: '/',
+      //         // 非入口chunk的名称
+      //         chunkFilename: 'js/[name]_chunk.js',
+      //         // library: '[name]', // 整个库向外暴露的变量名
+      //         // libraryTarget: 'window' // 变量名添加到哪个上 browser
+      //         // libraryTarget: 'global' // 变量名添加到哪个上 node
+      //         // libraryTarget: 'commonjs'
+      //     },
+      //     plugins: [
+      //         //多出口 一般和多入口对应
+      //         new HtmlWebpackPlugin({
+      //             template: './src/index.html',
+      //             filename:'index.html',
+      //             //只引入index.js，不指定的话会引入index、home.js
+      //             chunks:['index']
+      //         }),
+      //         new HtmlWebpackPlugin({
+      //             template: './src/index.html',
+      //             filename:'home.html',
+      //             chunks:['home']
+      //         }),
+      //     ]
+      // }
+
       title: 'bundled_index',
       // 相对路径，起点为output里设置的
       filename: 'index.html',

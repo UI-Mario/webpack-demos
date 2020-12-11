@@ -24,3 +24,5 @@ TODO:
 - own
 
 - dll
+
+- gzip
