@@ -28,6 +28,7 @@ module.exports = {
     // resolve和join
     path: resolve(PROJECT_PATH, './build'),
   },
+  // publicPath: '',
   resolve: {
     // 新增了 resolve属性，在 extensions 中定义好文件后缀名后，在 import 某个文件的时候，
     // 就可以不加文件后缀名了。webpack 会按照定义的后缀名的顺序依次处理文件，比如上文配置 ['.tsx', '.ts', '.js', '.json']，
@@ -65,6 +66,8 @@ module.exports = {
           // 将css文件变成commonjs模块加载到输出的js文件中，里面内容是样式字符串
           'css-loader',
         ],
+        include: [], // 查找文件的范围
+        exclude: [], // 查找文件需排除的文件夹
       },
       {
         test: /\.less$/,
@@ -79,7 +82,19 @@ module.exports = {
       {
         test: /\.s(a|c)ss$/,
         use: [
-          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          // TODO: style-loader和MiniCssExtractPlugin有什么区别？
+          // Answer: style-loader是把css等样式弄进js，注入html
+          // MiniCssExtractPlugin是把css等样式单独抽成文件，在html里直接link
+          isDev
+            ? 'style-loader'
+            : {
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                  // 有意思的是，在使用了MiniCssExtractPlugin进行css抽出打包，不加这个就会打包失败，就算加个空字符串，也会成功
+                  // TODO:publicPath
+                  publicPath: '',
+                },
+              },
           {
             loader: 'css-loader',
             options: {
@@ -179,7 +194,7 @@ module.exports = {
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      filename: 'test/another_test.html',
+      filename: 'test_another_entry/another_test.html',
     }),
   ],
 };

@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { Num1SVG } from './components/num1SVG';
+
 import './test.scss';
 import test_img from './assets/images/awesome.png';
 import { test_ts } from './test_ts';
@@ -25,6 +27,7 @@ ReactDOM.render(
       {/* 写法2，丑，而且还要在.d.ts里declare一下 */}
       <img src={test_img} alt="检查是否可以打包img" />
       <p>this is a paragraph</p>
+      <Num1SVG />
     </div>
   </div>,
   document.querySelector('#root')
