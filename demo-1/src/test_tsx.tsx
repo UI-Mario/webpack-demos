@@ -10,6 +10,29 @@ import { test_ts } from './test_ts';
 
 test_ts();
 
+const myThrottle = (fn: () => void, time: number): any => {
+  let isRunning = false;
+  return () => {
+    if (!isRunning) {
+      isRunning = true;
+      setTimeout(() => {
+        fn();
+        isRunning = false;
+      }, time);
+    }
+  };
+};
+
+const myDebounce = (fn: () => void, time: number): any => {
+  let timer: any = null;
+  return () => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn();
+    }, time);
+  };
+};
+
 ReactDOM.render(
   <div>
     <div className="test"></div>
@@ -28,6 +51,24 @@ ReactDOM.render(
       <img src={test_img} alt="检查是否可以打包img" />
       <p>this is a paragraph</p>
       <Num1SVG />
+      <p>一段时间后才能继续响应</p>
+      <button
+        type="button"
+        onClick={myThrottle(() => {
+          console.log('you click');
+        }, 3000)}
+      >
+        throttle(节流)
+      </button>
+      <p>防抖函数指的是某个函数在某段时间内，无论触发了多少次回调，都只执行最后一次</p>
+      <button
+        type="button"
+        onClick={myDebounce(() => {
+          console.log('you click');
+        }, 3000)}
+      >
+        debounce(防抖)
+      </button>
     </div>
   </div>,
   document.querySelector('#root')

@@ -11,6 +11,7 @@ module.exports = merge(base, {
   devServer: {
     // TODO:为啥会打开我打包后的index.html??不知，把打出来的html不叫index就找不到了
     // FIXME:!!!!!!!配置多入口会报错，先记着，感觉是个大坑
+    // 还有一大坑，对于webpack-cli的版本还有限制，真是个鸡肋
     host: SERVER_HOST, // 指定 host，不设置的话默认是 localhost
     port: SERVER_PORT, // 指定端口，默认是8080
     contentBase: resolve(PROJECT_PATH, './build'), // 其实不指定也行，默认他好像也会自己找到
