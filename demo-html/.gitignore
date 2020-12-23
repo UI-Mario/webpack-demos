@@ -1,6 +1,7 @@
 # build tools
 /node_modules
 /build
+/dist
 
 # logfiles
 *.log
@@ -9,4 +10,3 @@
 
 #mac
 *.DS_Store
-

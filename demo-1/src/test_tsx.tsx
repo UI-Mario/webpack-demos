@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Num1SVG } from './components/num1SVG';
+import { TestModulePackComponent } from './components/test_module_pack';
 
 import './test.scss';
 import test_img from './assets/images/awesome.png';
@@ -51,6 +52,7 @@ ReactDOM.render(
       <img src={test_img} alt="检查是否可以打包img" />
       <p>this is a paragraph</p>
       <Num1SVG />
+      {/* <TestModulePackComponent /> */}
       <p>一段时间后才能继续响应</p>
       <button
         type="button"

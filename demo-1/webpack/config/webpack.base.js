@@ -10,6 +10,15 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const CompressionPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// 看名字，能在打包时更友好分析
+const DashboardPlugin = require('webpack-dashboard/plugin');
+// loader、plugins后面加上打包的时间和体积
+// 不会用呀w(ﾟДﾟ)w
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+
+const SizePlugin = require('size-plugin');
+
+const smp = new SpeedMeasurePlugin();
 
 module.exports = {
   entry: {
@@ -22,7 +31,8 @@ module.exports = {
   output: {
     // 多入口时，打包出来的文件名字必须不一样
     // TODO:那html怎么确定要引入的js文件，文件名一直变
-    // ANSWER:html-webpack-plugin
+    // ANSWER:html-webpack-plugin，既然js是动态生成的，那我html也动态生成不就好了
+    // [name],[hash:8]涉及到文件指纹，自行查阅资料
     filename: 'js/[name].[hash:8].bundle.js',
     //必须是绝对路径
     // resolve和join
@@ -140,8 +150,12 @@ module.exports = {
       name: isDev ? '正在启动' : '正在打包',
       color: '#fa8c16',
     }),
+    // 还是算了，没觉着这dashboard有啥用
+    // new DashboardPlugin(),
     // 注意啊，先clean之后再加上新的，差点搞反顺序
     // ...不，好像没啥影响
+    // 由于plugins是调用webpack的api，所以顺序无所谓
+    new SizePlugin(),
     new HtmlWebpackPlugin({
       // TODO:多出口，具体请看考下列代码
       //   module.exports = {

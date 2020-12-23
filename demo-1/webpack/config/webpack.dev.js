@@ -4,6 +4,9 @@ const { merge } = require('webpack-merge');
 const base = require('./webpack.base'); //TODO:
 const { SERVER_HOST, SERVER_PORT, PROJECT_PATH } = require('../constant');
 
+// 对于webpack的后续学习讲的很细，突然就不想学了
+// https://juejin.cn/post/6844904094281236487
+
 module.exports = merge(base, {
   mode: 'development',
   // devtool: '#eval-source-map',
