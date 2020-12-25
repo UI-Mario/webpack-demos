@@ -23,6 +23,10 @@
       "esModuleInterop": true, // 支持 CommonJS 和 ES 模块之间的互操作性
       "resolveJsonModule": true, // 支持导入 json 模块
       "baseUrl": "./", // 根路径
+      // "typeRoots": [
+      //   "./node_modules/@types",
+      //   "./types/test.d.ts"
+      // ],
       "paths": {
         // 路径映射，与 baseUrl 关联，为了不写那么多的../
         // 问题是webpack里也可以写，难懂

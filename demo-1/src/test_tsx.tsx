@@ -71,6 +71,8 @@ ReactDOM.render(
       >
         debounce(防抖)
       </button>
+      <br />
+      <TestModulePackComponent />
     </div>
   </div>,
   document.querySelector('#root')
