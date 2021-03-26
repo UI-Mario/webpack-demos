@@ -9,7 +9,6 @@ const webpack = require('webpack');
 const env = require('../bin/loadEnv');
 
 module.exports = {
-  mode: "development",
   entry: {
     index: resolve(PROJECT_PATH, "./src/index.js"),
   },
