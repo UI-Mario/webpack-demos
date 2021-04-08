@@ -1,0 +1,17 @@
+{
+  "name": "test_babel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {},
+  "devDependencies": {
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.14",
+    "@babel/parser": "^7.13.13",
+    "@babel/preset-env": "^7.13.12"
+  },
+  "dependencies": {},
+  "bin": {
+    "testyarn": "./testyarn"
+  }
+}

@@ -7,7 +7,7 @@ const devConfig = {
   // 根据官方文档的表述，设置mode会自动帮你做一些plugins上的增减，
   // 以及把process.env.NODE_ENV设置成相应的值
   mode: "development",
-  devtool: '#eval-source-map',
+  devtool: 'inline-source-map',
   devServer: {
     port: SERVER_PORT, // 本地模拟服务器端口
     open: true, // 运行开发环境，打开浏览器

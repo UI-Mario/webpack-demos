@@ -1,0 +1,6 @@
+/dist/**
+/docs/**
+/webpack/**
+/node_modules/**/*
+!.eslintrc.js
+bin/**
