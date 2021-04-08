@@ -1,3 +1,5 @@
+// npx babel test.js --watch --out-file test.t.js
+// 详见https://www.babeljs.cn/docs/babel-cli
 for (const item of [1, 2, 3, 4]) {
 }
 

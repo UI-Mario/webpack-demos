@@ -1,3 +1,6 @@
+import "core-js/modules/es.reflect.get.js";
+import "core-js/modules/es.reflect.set.js";
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -24,3 +27,33 @@ var A = /*#__PURE__*/function () {
 }();
 
 var b = undefined !== null && undefined !== void 0 ? undefined : 123;
+var antetype = {
+  a: 1,
+  c: [1, 2, 3],
+  z: {
+    y: 999
+  }
+};
+var obj = new Proxy(antetype, {
+  get: function get(target, propKey, receiver) {
+    console.log("getting ".concat(propKey, "!"));
+    return Reflect.get(target, propKey, receiver);
+  },
+  set: function set(target, propKey, value, receiver) {
+    console.log("setting ".concat(propKey, "!"));
+    return Reflect.set(target, propKey, value, receiver);
+  }
+});
+
+var fs = require('fs');
+
+var parser = require('@babel/parser');
+
+var body = fs.readFileSync('./module.js', {
+  encoding: 'utf-8'
+});
+console.log(body);
+var ast = parser.parse(body, {
+  sourceType: 'module'
+});
+console.log(ast);
