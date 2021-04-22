@@ -6,7 +6,7 @@
   "scripts": {
     "test": "webpack --config ./webpack/webpack.base.js",
     "lint": "eslint --fix --ext .js --ext .vue src",
-    "ptest": "cross-env NODE_ENV=production webpack serve --config ptest/webpack.test.js",
+    "ptest": "cross-env NODE_ENV=production webpack serve --config ptest/webpack.myLoader.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.prod.js",
     "start": "cross-env NODE_ENV=development webpack serve --config ./webpack/webpack.dev.js"
   },
