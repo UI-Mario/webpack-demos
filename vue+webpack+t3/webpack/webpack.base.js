@@ -58,6 +58,20 @@ module.exports = {
         test: /\.vue$/,
         use: "vue-loader",
       },
+      {
+        test: /\.md$/,
+        use: [{
+          loader: resolve(PROJECT_PATH, './lib/loaders/md-loader.js'),
+          options: {}
+        }],
+      },
+      {
+        test: /\.ptest$/,
+        use: [{
+          loader: resolve(PROJECT_PATH, './lib/loaders/ptest-loader.js'),
+          options: {}
+        }],
+      },
     ],
   },
   plugins: [

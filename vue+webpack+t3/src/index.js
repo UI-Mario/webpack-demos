@@ -5,7 +5,8 @@
 // const app = createApp(App) // 通过 createApp 初始化 app
 // app.use(router)
 // app.mount('#root') // 将页面挂载到 root 节点
-
+import test from './test.md'
+import ptest from './ptest.ptest'
 console.info('hello typescriptt')
 const obj = {
   a: 1,
@@ -13,6 +14,9 @@ const obj = {
 }
 console.log(obj?.c)
 console.log(null ?? 'this is null/undefined')
+console.log(test)
+console.log(ptest)
+
 // 这里自己给process.env增加了内容，详见bin文件夹
 // console.log(process.env)
 
