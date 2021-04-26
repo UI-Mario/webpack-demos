@@ -3,7 +3,7 @@
 for (const item of [1, 2, 3, 4]) {
 }
 
-const foo = () => {};
+const foo = (a, b) => {};
 
 class A {
   constructor() {}
