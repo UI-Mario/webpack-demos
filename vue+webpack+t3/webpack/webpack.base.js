@@ -7,6 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const webpack = require('webpack');
 const env = require('../bin/loadEnv');
+const myPlugin = require('../lib/myPlugin')
 
 module.exports = {
   entry: {
@@ -99,6 +100,15 @@ module.exports = {
       'process.env': {
         ...env
       }
-    })
+    }),
+    new myPlugin(
+      () => {
+        //throw new Error('Error!')
+        console.log("成功监听到结束事件，可以执行你想要的函数！");
+      },
+      (error) => {
+        console.log(error);
+      }
+    ),
   ],
 };
