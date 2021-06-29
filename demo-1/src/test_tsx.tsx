@@ -11,6 +11,8 @@ import { test_ts } from './test_ts';
 
 test_ts();
 
+console.log(123);
+
 const myThrottle = (fn: () => void, time: number): any => {
   let isRunning = false;
   return () => {

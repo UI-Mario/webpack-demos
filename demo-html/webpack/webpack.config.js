@@ -1,5 +1,5 @@
 const { resolve } = require("path");
-
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 // FIXME:一个神奇的坑，留底存证
 // 在这个无比简陋的项目里，
@@ -22,4 +22,12 @@ module.exports = {
     path: resolve(__dirname, "../dist"),
     filename: "js/[name].bundle.js",
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "bundled_index",
+      filename: "index.html",
+      template: resolve(__dirname, '../public/index.html'),
+      cache: false
+    })
+  ]
 };
