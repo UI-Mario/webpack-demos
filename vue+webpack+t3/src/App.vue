@@ -25,6 +25,11 @@ export default {
       console.log(123)
     },
     init() {
+      fetch('https://test.com').then(res => {
+        console.log(res)
+      }).catch(e => {
+        console.log(e)
+      })
       try {
         setTimeout(() => {
           this.user = '123'
