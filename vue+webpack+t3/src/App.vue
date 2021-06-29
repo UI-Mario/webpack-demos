@@ -1,8 +1,7 @@
 <template>
   <div @click="test" class="ww" ref="test">
     <div>tt</div>
-    <div v-if="error">{{ error }}</div>
-    <div v-else>
+    <div v-if="user">
       <user :user="user"></user>
     </div>
   </div>
