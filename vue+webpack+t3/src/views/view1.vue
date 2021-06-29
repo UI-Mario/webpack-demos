@@ -1,19 +1,24 @@
 <template>
   <div>
     <header>view1</header>
-    <canvas id="three" ref="three"></canvas>
+    <Users></Users>
+    <!-- <canvas id="three" ref="three"></canvas> -->
   </div>
 </template>
 
 <script>
 import * as THREE from 'three'
+import Users from './Users.vue'
+// import { defineAsyncComponent } from 'vue'
+// const Users = defineAsyncComponent(() => import('./Users.vue'))
 export default {
+  components: { Users },
   data() {
     return {}
   },
   methods: {
     init() {
-      this.createBaseThree()
+      // this.createBaseThree()
     },
     createBaseThree() {
       // 三大要素：scene, camera, render
