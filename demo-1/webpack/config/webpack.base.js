@@ -30,10 +30,14 @@ module.exports = {
   // entry: ['./src/test_tsx.tsx', './src/another_entry.js'],
   output: {
     // 多入口时，打包出来的文件名字必须不一样
-    // TODO:那html怎么确定要引入的js文件，文件名一直变
+    // 那html怎么确定要引入的js文件，文件名一直变
     // ANSWER:html-webpack-plugin，既然js是动态生成的，那我html也动态生成不就好了
     // [name],[hash:8]涉及到文件指纹，自行查阅资料
-    filename: 'js/[name].[hash:8].bundle.js',
+    // chunkhash跟hash不同的一点就是，chunkhash可以根据内容是否变化，来决定
+    // 是否生成新的哈希值。但现在让我困惑的一点就是，例如index.ts改变，index.ts的chunkhash
+    // 改变我理解，但是index.ts引用的文件也变了，这就很糟心...不好意思我是憨批
+    // 打包出来就俩，被压缩晃了眼睛
+    filename: 'js/[name].[chunkhash:8].bundle.js',
     //必须是绝对路径
     // resolve和join
     path: resolve(PROJECT_PATH, './build'),
@@ -143,6 +147,10 @@ module.exports = {
 
   // plugins的配置
   plugins: [
+    new MiniCssExtractPlugin({
+      // TODO:这一行没用
+      filename: '[name].[hash:7].css',
+    }),
     new CompressionPlugin(),
     new CleanWebpackPlugin(),
     // 详细plugins的配置

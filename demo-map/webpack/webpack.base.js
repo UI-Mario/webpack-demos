@@ -7,14 +7,20 @@ const WebpackBar = require('webpackbar');
 
 module.exports = {
   mode: 'development',
+  optimization: {
+    usedExports: true,
+  },
   entry: {
     index: "./src/index.js",
+    another: "./src/another.js",
   },
   output: {
     path: resolve(__dirname, '../dist'),
-    filename: 'js/[name].[hash:8].js'
+    filename: 'js/[name].[chunkhash:8].js'
   },
-  plugins: [],
+  plugins: [
+    new CleanWebpackPlugin()
+  ],
   module: {
     rules: [],
   },

@@ -1,82 +1,24 @@
 <template>
-  <div class="container">
-    <svg
-      version="1.1"
-      id="loader-1"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      x="0px"
-      y="0px"
-      width="400px"
-      height="400px"
-      viewBox="0 0 400 400"
-      enable-background="new 0 0 400 400"
-      xml:space="preserve"
-    >
-      <g v-for="(item, index) in data.children" :key="index">
-        <rect
-          :x="item.x0"
-          :y="item.y0"
-          :width="item.x1 - item.x0"
-          :height="item.y1 - item.y0"
-        />
-        <text :x="(item.x0 + item.x1) / 2" :y="(item.y0 + item.y1) / 2">
-          {{ item.value }}
-        </text>
-      </g>
-    </svg>
+  <div @click="test" class="ww" ref="test">
+    <div>tt</div>
+    <div v-if="error">{{ error }}</div>
+    <div v-else>users:{{ user }}</div>
   </div>
 </template>
 <script>
+import { ref } from 'vue'
 export default {
-  data() {
-    return {
-      data: {
-        name: 'root',
-        children: [
-          {
-            name: '分类 1',
-            value: 2
-          },
-          {
-            name: '分类 2',
-            value: 10
-          },
-          {
-            name: '分类 3',
-            value: 4
-          },
-          {
-            name: '分类 4',
-            value: 3
-          },
-          {
-            name: '分类 5',
-            value: 7
-          },
-          {
-            name: '分类 6',
-            value: 5
-          },
-          {
-            name: '分类 7',
-            value: 9
-          },
-          {
-            name: '分类 8',
-            value: 8
-          },
-          {
-            name: '分类 9',
-            value: 1
-          },
-          {
-            name: '分类 10',
-            value: 6
-          }
-        ]
-      }
+  async setup() {
+    const error = ref(null)
+    const user = ref(null)
+    try {
+      setTimeout(() => {
+        user.value = '123'
+      }, 5000)
+    } catch (e) {
+      error.value = e
     }
+    return { user, error }
   },
   methods: {
     binaryTree(parent, x0, y0, x1, y1) {
@@ -148,5 +90,8 @@ rect {
   fill: #7dc5eb;
   stroke: #fff;
   stroke-width: 3;
+}
+.mm {
+  height: auto;
 }
 </style>
