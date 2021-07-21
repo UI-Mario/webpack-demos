@@ -4,8 +4,6 @@ const CompressionPlugin = require("compression-webpack-plugin");
 
 const prodConfig = {
   mode: 'production',
-  // 这里的source-map会产生成一张映射表，才能把代码从打包后映射到打包前
-  devtool: 'source-map',
   plugins: [
     new CompressionPlugin({
       test: /\.(js|css|html|svg|wasm|png)$/,
