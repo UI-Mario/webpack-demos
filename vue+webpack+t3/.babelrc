@@ -4,7 +4,14 @@
       "@babel/preset-env",
       {
         "corejs": "3",
-        "useBuiltIns": "usage"
+        "useBuiltIns": "usage",
+        "debug": true,
+        "targets": {
+          "ios": 8,
+          "android": 4,
+          "chrome": 58,
+          "ie": 8
+        }
       }
     ]
     // "@babel/preset-typescript"
@@ -12,6 +19,13 @@
   "plugins": [
     [
       "@babel/plugin-transform-runtime",
+      {
+        "absoluteRuntime": false,
+        "corejs": 3,
+        "helpers": true,
+        "regenerator": true,
+        "version": "7.0.0-beta.0"
+      }
     ]
   ]
 }

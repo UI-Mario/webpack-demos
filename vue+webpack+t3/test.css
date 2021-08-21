@@ -1,0 +1,91 @@
+html,
+body {
+  background: #cdcdcd;
+  /*cursor: url(https://davidwalsh.name/demo/css-custom-cursor.ico),auto;*/
+  cursor: url("./smirk.ico") 16 16,auto;
+}
+.box {
+  width: 100px;
+  height: 100px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid red;
+  cursor: url("./favicon.ico"),auto;
+}
+.item {
+  width: 100px;
+  height: 100px;
+  background: #cdcdcd;
+}
+.invisible-img {
+  width: 100px;
+  height: 100px;
+  visibility: hidden;
+  background: url("https://dlcdn.cdollar.cn/yinhua_meet/re_red3.png")
+    no-repeat center/100%;
+}
+.clip-test {
+  font-size: 9rem;
+  width: 400px;
+  font-family: Helvetica;
+  letter-spacing: -0.3rem;
+  /*chrome必须得加个-webkit-，所以这堆属性没法一起放进background简写*/
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: url("https://images.unsplash.com/photo-1568279898331-4870e84677dd?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGxpbmVhcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60");
+  background-position: center center;
+  clip-path: ellipse(100px 100px at 0% 50%);
+  animation: SpotLight 5s infinite;
+}
+h1 {
+  font-size: 9rem;
+  font-family: Helvetica;
+  letter-spacing: -0.3rem;
+  color: #333;
+  position: relative;
+}
+
+h1::after {
+  content: attr(dot-light);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: transparent;
+  clip-path: ellipse(100px 100px at 0% 50%);
+  animation: SpotLight 5s infinite;
+  background-image: url("https://images.unsplash.com/photo-1568279898331-4870e84677dd?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGxpbmVhcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60");
+  background-size: 150%;
+  background-position: center center;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@keyframes SpotLight {
+  0% {
+    clip-path: ellipse(100px 100px at 0% 50%);
+  }
+
+  50% {
+    clip-path: ellipse(100px 100px at 100% 50%);
+  }
+
+  100% {
+    clip-path: ellipse(100px 100px at 0% 50%);
+  }
+}
+.ccc {
+  height: 200px;
+  background: lightcoral;
+  display: grid;
+  place-items: center;
+}
+h1 {
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+}
+canvas {
+  width: 592px;
+  height: 353px;
+  border: 1px solid white;
+}

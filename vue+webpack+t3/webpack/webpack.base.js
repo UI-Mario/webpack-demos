@@ -105,6 +105,7 @@ module.exports = {
       () => {
         //throw new Error('Error!')
         console.log("成功监听到结束事件，可以执行你想要的函数！");
+        console.log(process.argv)
       },
       (error) => {
         console.log(error);
