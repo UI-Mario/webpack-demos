@@ -1,3 +1,3 @@
-import axios from 'axios'
-axios.get('test', {})
+import { add } from './math'
+
 console.log('hello webpack html')
