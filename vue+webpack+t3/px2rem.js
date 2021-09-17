@@ -13,7 +13,7 @@ var pxRegExp = /\b(\d+(\.\d+)?)px\b/
 
 var cssText = fs.readFileSync('./test.css', { encoding: 'utf8' })
 var astObj = css.parse(cssText)
-console.log(cssText)
+console.log(astObj)
 fs.createFileSync('./debug.css')
 
 fs.writeFileSync('./debug.css', 'html{}', { encoding: 'utf8' })

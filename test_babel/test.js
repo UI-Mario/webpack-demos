@@ -41,10 +41,10 @@ const body = fs.readFileSync('./module.js', {
     encoding: 'utf-8'
 })
 
-console.log(body)
+// console.log(body)
 
 const ast = parser.parse(body, {
     sourceType: 'module'
 })
 
-console.log(ast)
+// console.log(ast)

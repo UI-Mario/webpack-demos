@@ -12,7 +12,8 @@
     "lint:quiet": "eslint --ext=ts,tsx src --quiet",
     "lint:fix": "eslint --ext=ts,tsx src --quiet --fix",
     "lint:log": "eslint --ext=ts,tsx src -o ./eslint.log",
-    "test-lint": "eslint --fix ./webpack/config/webpack.dev.js"
+    "test-lint": "eslint --fix ./webpack/config/webpack.dev.js",
+    "ttt": "webpack demo.js -o hello.js"
   },
   "author": "",
   "license": "ISC",

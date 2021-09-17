@@ -3,14 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "serve": "node ./node_modules/livioo-live-server/serve.js -p 4444 --entry-file tt.html"
+  },
   "devDependencies": {
     "@babel/cli": "^7.13.14",
     "@babel/core": "^7.13.14",
     "@babel/parser": "^7.13.13",
     "@babel/preset-env": "^7.13.12"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@livioo/test-dependency": "^0.0.8"
+  },
   "bin": {
     "testyarn": "./testyarn"
   }
