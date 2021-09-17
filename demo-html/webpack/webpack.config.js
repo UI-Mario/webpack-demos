@@ -1,5 +1,6 @@
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 // FIXME:一个神奇的坑，留底存证
 // 在这个无比简陋的项目里，
@@ -15,6 +16,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 所以，看来坑是白留了
 
 module.exports = {
+  mode: 'production',
+  // optimization: {
+  //   usedExports: true,
+  // },
   entry: {
     index: "./src/index.js",
   },
@@ -23,6 +28,7 @@ module.exports = {
     filename: "js/[name].bundle.js",
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "bundled_index",
       filename: "index.html",
