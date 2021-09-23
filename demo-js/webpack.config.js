@@ -3,19 +3,20 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HelloWorldPlugin = require("./HelloWorldPlugin");
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   devtool: "source-map",
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].[contenthash:8].js",
+    filename: "bundled.js",
   },
   module: {
     rules: [
       {
         test: /\.js$/, // 处理以.js结尾的文件
         exclude: /node_modules/, // 处理除了nodde_modules里的js文件
-        loader: "babel-loader", // 用babel-loader处理
+        // 在写webpack plugin的时候关掉了babel-loader，不然干扰太大
+        // loader: "babel-loader", // 用babel-loader处理
       },
     ],
   },
