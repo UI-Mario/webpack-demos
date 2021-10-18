@@ -1,6 +1,7 @@
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // FIXME:一个神奇的坑，留底存证
 // 在这个无比简陋的项目里，
@@ -27,6 +28,34 @@ module.exports = {
     path: resolve(__dirname, "../dist"),
     filename: "js/[name].bundle.js",
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          // {
+          //   loader: "style-loader",
+          // },
+          {
+            loader: "css-loader",
+            options: {
+              modules: true
+            },
+          }
+        ],
+      },
+    ],
+  },
+  devServer: {
+    static: {
+      directory: resolve(__dirname, 'public'),
+    },
+    compress: true,
+    port: 9000,
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -34,6 +63,10 @@ module.exports = {
       filename: "index.html",
       template: resolve(__dirname, '../public/index.html'),
       cache: false
-    })
+    }),
+    new MiniCssExtractPlugin({
+      // 对输出的css文件进行重命名
+      filename: "css/[name].css",
+    }),
   ]
 };

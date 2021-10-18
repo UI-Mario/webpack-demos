@@ -1,3 +1,5 @@
+// 当我直接使用babel/core里的方法转化代码时，也会使用这个配置文件
+// 如base.js
 module.exports = function (api) {
   api.cache(false);
 

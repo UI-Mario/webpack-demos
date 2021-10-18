@@ -126,22 +126,6 @@ export default {
 </script>
 
 <style scoped>
-.ww {
-  width: 100px;
-  height: 100px;
-  background-color: yellowgreen;
-}
-.mm {
-  height: auto;
-}
-#marquee {
-  width: 200px;
-  height: 30px;
-  background: #ccc;
 
-  display: flex;
-  align-items: center;
-
-  position: relative;
-}
+@import './index.css'
 </style>
