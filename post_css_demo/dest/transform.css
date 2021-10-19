@@ -1,0 +1,26 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.item {
+    width: 100px;
+    height: 100px;
+    background-color: aliceblue;
+    -webkit-clip-path: circle(50%);
+            clip-path: circle(50%);
+    transform-style: preserve-3d;
+}
+
+@media screen {}
+
+@-webkit-keyframes aaa {
+    from {top: 0px;}
+    to {top: 200px;}
+}
+
+@keyframes aaa {
+    from {top: 0px;}
+    to {top: 200px;}
+}
