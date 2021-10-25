@@ -1,0 +1,14 @@
+{
+  "name": "postcss_demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "autoprefixer": "^10.3.4",
+    "postcss": "^8.3.6",
+    "postcss-nested": "^5.0.6"
+  },
+  "scripts": {
+    "build": "node index.js"
+  }
+}

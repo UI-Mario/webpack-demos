@@ -1,0 +1,19 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  width: 19rem;
+  color: aquamarine;
+}
+
+.text {
+  font-size: 18rem;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: 500;
+  line-height: 18rem;
+  letter-spacing: normal;
+  color: bisque;
+}
