@@ -4,20 +4,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const isProd = process.env.NODE_ENV === 'production';
-
-const babelOptions = {
-  presets: [
-    [
-      '@babel/preset-env',
-      {
-        targets: 'last 2 versions, ie 11',
-        modules: false,
-      },
-    ],
-  ],
-};
 
 const config = {
   mode: isProd ? 'production' : 'development',
@@ -37,7 +26,6 @@ const config = {
         use: [
           {
             loader: 'babel-loader',
-            options: babelOptions,
           },
           {
             loader: 'ts-loader',
@@ -96,6 +84,7 @@ const config = {
         },
       ],
     }),
+    // new BundleAnalyzerPlugin(),
   ],
 
   devServer: {
