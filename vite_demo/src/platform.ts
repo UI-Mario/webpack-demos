@@ -20,7 +20,7 @@ export default class Platform {
     // TODO:buffer
   }
   checkTrack():Track {
-    // 有空的就返回空的，不然就返回走得最远的
+    // TODO:有空的就返回空的，不然就返回走得最远的
     // 如果速度动态，这方法就是错的
     const tracksLastBullet:Array<Bullet> = [];
     for (const track of this.tracksArray) {

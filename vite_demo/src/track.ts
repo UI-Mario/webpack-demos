@@ -29,6 +29,7 @@ export default class Track {
   }
   isEmpty():Boolean {
     this.bulletArray = this.bulletArray.filter((bullet) => {
+      // bullet移除
       return bullet.el.parentNode;
     });
     return this.bulletArray.length === 0;

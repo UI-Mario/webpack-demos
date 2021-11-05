@@ -15,8 +15,6 @@ import Plaform from "./platform";
 
 import { ref, getCurrentInstance, reactive } from "vue";
 
-import renderComponent from "./renderComponent";
-
 const RANDOM_WORDS =
   "欧巴此外v额外IP v吧哦前辈【去v被称为哦i啊从不【阿布婆妈三年从欸吃饭欧巴从底部成为";
 

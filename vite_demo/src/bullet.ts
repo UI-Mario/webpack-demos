@@ -21,7 +21,7 @@ export default class Bullet {
     width: 100,
     duration: 100,
   };
-  private unmountTimeoutIndex:number = 0
+  private unmountTimeoutIndex:number = Infinity
   constructor(innerHTML: string) {
     if (!innerHTML) return;
     this.initEl(innerHTML);
@@ -67,12 +67,13 @@ export default class Bullet {
 
       // TODO: 如果要考虑hover暂停，
       // 就只能通过getBoundingClientRect侧面计算duration
-      setTimeout(() => {
+      this.unmountTimeoutIndex = setTimeout(() => {
         this.removeListener()
         this.unmount()
       }, duration + 1000)
 
       this.el.style["transition"] = `all ${duration}ms linear`
+      this.el.style["willChange"] = `transform`
       setTimeout(() => {
         this.el.style["transform"] = `translate3d(-${this.position.left + this.elWidth}${this.unit},0,0)`
       })
@@ -80,8 +81,14 @@ export default class Bullet {
     animation()
   }
   pause() {
-    this.state = "pause";
-    console.log('pause')
+    if(this.unmountTimeoutIndex !== Infinity) {
+      this.state = "pause";
+      // clear unmount settimeout
+      clearTimeout(this.unmountTimeoutIndex)
+      this.unmountTimeoutIndex = Infinity
+      // stop transition
+
+    }
   }
   continueMove() {
     this.state = "moving";
@@ -90,8 +97,12 @@ export default class Bullet {
   }
   // 弹幕数较少，可以考虑放在这
   initListener() {
-    this.el.addEventListener("mouseenter", this.pause);
-    this.el.addEventListener("mouseover", this.pause);
+    this.el.addEventListener("mouseenter", () => {
+      this.pause()
+    });
+    this.el.addEventListener("mouseover", () => {
+      this.pause()
+    });
     this.el.addEventListener("mouseout", this.continueMove);
   }
   removeListener() {
@@ -100,6 +111,7 @@ export default class Bullet {
     this.el.removeEventListener("mouseout", this.continueMove);
   }
   unmount() {
+    // TODO: dom节点的复用
     this.targetEl?.removeChild(this.el);
   }
 }
