@@ -19,6 +19,8 @@ export default class Bullet {
   private animationId: number | undefined;
   private speed: any = null;
   private unmountTimeoutIndex:number = Infinity
+  private pauseHandler = this.pause.bind(this)
+  private continueMoveHandler = this.continueMove.bind(this)
   constructor(innerHTML: string) {
     if (!innerHTML) return;
     this.initEl(innerHTML);
@@ -105,18 +107,14 @@ export default class Bullet {
   }
   // 弹幕数较少，可以考虑放在这
   initListener() {
-    this.el.addEventListener("mouseenter", () => {
-      this.pause()
-    });
-    this.el.addEventListener("mouseover", () => {
-      this.pause()
-    });
-    this.el.addEventListener("mouseout", this.continueMove);
+    this.el.addEventListener("mouseenter", this.pauseHandler);
+    this.el.addEventListener("mouseover", this.pauseHandler);
+    this.el.addEventListener("mouseout", this.continueMoveHandler);
   }
   removeListener() {
-    this.el.removeEventListener("mouseenter", this.pause);
-    this.el.removeEventListener("mouseover", this.pause);
-    this.el.removeEventListener("mouseout", this.continueMove);
+    this.el.removeEventListener("mouseenter", this.pauseHandler);
+    this.el.removeEventListener("mouseover", this.pauseHandler);
+    this.el.removeEventListener("mouseout", this.continueMoveHandler);
   }
   unmount() {
     // TODO: dom节点的复用
