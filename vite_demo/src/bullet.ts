@@ -17,10 +17,7 @@ export default class Bullet {
     top: 0,
   };
   private animationId: number | undefined;
-  private speed = {
-    width: 100,
-    duration: 100,
-  };
+  private speed: any = null;
   private unmountTimeoutIndex:number = Infinity
   constructor(innerHTML: string) {
     if (!innerHTML) return;
@@ -56,10 +53,12 @@ export default class Bullet {
   }
   move(duration: number, width: number) {
     this.state = "moving";
-    this.speed = {
-      width,
-      duration,
-    };
+    if(!this.speed) {
+      this.speed = {
+        width,
+        duration,
+      };
+    }
     // debugger
     // 性能太差了
     const animation = () => {
@@ -67,6 +66,7 @@ export default class Bullet {
 
       // TODO: 如果要考虑hover暂停，
       // 就只能通过getBoundingClientRect侧面计算duration
+      // 找到个新东西，getComputedStyle，毕竟我们只需要style，不需要其他花里胡哨的
       this.unmountTimeoutIndex = setTimeout(() => {
         this.removeListener()
         this.unmount()
@@ -83,6 +83,12 @@ export default class Bullet {
   pause() {
     if(this.unmountTimeoutIndex !== Infinity) {
       this.state = "pause";
+      // FIXME:为什么我写的是transform3d获取的时候是matrix?
+      const transformX = getComputedStyle(this.el).transform.split(",")[4]
+      this.el.style.transition = "null"
+      setTimeout(() => {
+        this.el.style.transform = `translate3d(${transformX}${this.unit}, 0, 0)`
+      })
       // clear unmount settimeout
       clearTimeout(this.unmountTimeoutIndex)
       this.unmountTimeoutIndex = Infinity
@@ -92,8 +98,10 @@ export default class Bullet {
   }
   continueMove() {
     this.state = "moving";
-    const { duration, width } = this.speed;
-    this.move(duration, width);
+
+    // const totalWidth = this.position.left + this.elWidth
+    // const totalTime = this.speed.duration
+    // this.move(duration, width);
   }
   // 弹幕数较少，可以考虑放在这
   initListener() {
