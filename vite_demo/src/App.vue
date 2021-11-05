@@ -6,7 +6,7 @@
   <div @click="intervalSend()">模拟效果</div>
 </template>
 
-<script lang="ts">
+<script>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import Bullet from "./bullet";
@@ -29,6 +29,8 @@ const getRandomWords = () => {
   }
   return res;
 };
+
+const getRandomAvatar = () => {}
 
 export default {
   setup(props, context) {
@@ -53,29 +55,27 @@ export default {
   unmounted() {},
   methods: {
     send() {
-      const bullet = new Bullet({ text: this.inputText, avatar: "123", id });
-      this.platform.addBullet(bullet);
+      // const bullet = new Bullet({ text: this.inputText, avatar: "123", id });
+      // this.platform.addBullet(bullet);
     },
     initPlatForm() {
       this.platform = new Plaform(this.screenEl);
-      this.platform.initTracks(5);
+      this.platform.initTracks(4);
     },
     intervalSend() {
       const addRandomBullet = () => {
-        const text = getRandomWords();
-        const RANDOM_STR = ["a", "b", "c", "h", "n", "r", "u"];
-        const id = RANDOM_STR.reduce((acc, cur) => {
-          const randomIndex = Math.floor(Math.random() * RANDOM_STR.length);
-          return RANDOM_STR[randomIndex] + acc;
-        }, "");
-        const bullet = new Bullet({
-          text,
-          avatar: "",
-          id,
-        });
+        // TODO:不好的一点在于样式的分散
+        // 类里可以写外面也可以写
+        // 而且目前是要配合着才能出效果
+        const bullet = new Bullet(`
+          <div>
+            <img src="${getRandomAvatar()}" alt="avatar" class="bullet-avatar">
+            <div class="text">${getRandomWords()}</div>
+          </div>
+        `);
         this.platform.addBullet(bullet);
       };
-      setInterval(addRandomBullet, 1000);
+      setInterval(addRandomBullet, 800);
     },
   },
 };
@@ -93,8 +93,10 @@ export default {
 .screen {
   width: 500px;
   height: 400px;
-  margin-left: 100px;
   background: lightgray;
   position: relative;
+}
+.text {
+  white-space: nowrap;
 }
 </style>
