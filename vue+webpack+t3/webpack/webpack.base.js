@@ -3,11 +3,11 @@ const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const { VueLoaderPlugin } = require('vue-loader')
-const webpack = require('webpack');
-const env = require('../bin/loadEnv');
-const myPlugin = require('../lib/myPlugin')
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const { VueLoaderPlugin } = require("vue-loader");
+const webpack = require("webpack");
+const env = require("../bin/loadEnv");
+const myPlugin = require("../lib/myPlugin");
 
 module.exports = {
   entry: {
@@ -29,14 +29,14 @@ module.exports = {
           //   loader: MiniCssExtractPlugin.loader,
           // },
           {
-            loader: "style-loader"
+            loader: "style-loader",
           },
           {
             loader: "css-loader",
             options: {
-              modules: false
+              modules: false,
             },
-          }
+          },
         ],
       },
       {
@@ -50,16 +50,27 @@ module.exports = {
       },
       {
         // webpack5内置了asset模块来代替file-loader, url-loader啥的
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              limit: 5000,
-              name: "imgs/[hash].[ext]",
-            },
+        // test: /\.(png|svg|jpg|gif)$/,
+        // use: [
+        //   {
+        //     loader: "file-loader",
+        //     options: {
+        //       limit: 5000,
+        //       name: "imgs/[hash].[ext]",
+        //     },
+        //   },
+        // ],
+        test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
+        type: "asset",
+        parser: {
+          dataUrlCondition: {
+            maxSize: 4 * 1024, // 4kb
           },
-        ],
+        },
+        generator: {
+          // TODO: 为什么不直接[name].[ext]
+          filename: "assets/[hash][ext][query]",
+        },
       },
       {
         test: /\.vue$/,
@@ -67,17 +78,21 @@ module.exports = {
       },
       {
         test: /\.md$/,
-        use: [{
-          loader: resolve(PROJECT_PATH, './lib/loaders/md-loader.js'),
-          options: {}
-        }],
+        use: [
+          {
+            loader: resolve(PROJECT_PATH, "./lib/loaders/md-loader.js"),
+            options: {},
+          },
+        ],
       },
       {
         test: /\.ptest$/,
-        use: [{
-          loader: resolve(PROJECT_PATH, './lib/loaders/ptest-loader.js'),
-          options: {}
-        }],
+        use: [
+          {
+            loader: resolve(PROJECT_PATH, "./lib/loaders/ptest-loader.js"),
+            options: {},
+          },
+        ],
       },
     ],
   },
@@ -96,16 +111,16 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: resolve(PROJECT_PATH, './src/assets'),
-          to: resolve(PROJECT_PATH, './dist/assets')
-        }
-      ]
+          from: resolve(PROJECT_PATH, "./src/assets"),
+          to: resolve(PROJECT_PATH, "./dist/assets"),
+        },
+      ],
     }),
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
-      'process.env': {
-        ...env
-      }
+      "process.env": {
+        ...env,
+      },
     }),
     new myPlugin(
       () => {
