@@ -128,4 +128,5 @@ export default {
 <style scoped>
 
 @import './index.css'
+
 </style>
